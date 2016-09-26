@@ -1,0 +1,75 @@
+<html>
+  <head><title>Bibliography generator</title></head>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <style>
+    .error-help { display: none; }
+    .has-error .help-block { display: none; }
+    .has-error .help-block.error-help { display: block; }
+    .extract { clear: both; }
+  </style>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+	<div class="navbar-header">
+	  <span class="navbar-brand">Bibliography generator</span>
+	</div>
+      </div>
+    </nav>
+    <div class="container-fluid">      
+      <div class="row">
+	<div class="references col-md-6 form-group">
+	  <label class="control-label" for="references">All references</label>
+	  <textarea class="form-control" id="references" cols="80" rows="20"></textarea>
+	  <span class="help-block">Paste a list of all references here.</span>
+	  <span class="help-block error-help"><strong>Badly formatted reference list</strong> The list of references must be contained in a &lt;ul class="references"> element.</span>
+	</div>
+
+	<div class="text col-md-6 form-group">
+	  <label class="control-label" for="text">Page text</label>
+	  <textarea class="form-control" id="text" cols="80" rows="20"></textarea>
+	  <span class="help-block">Paste the page text here.</span>
+	</div>
+
+	<div class="extract">
+	  <button id="extract" class="btn btn-primary center-block">Extract references</button>
+	</div>
+      </div>
+    </div>
+
+    <div class="result modal">
+      <div class="modal-dialog modal-lg">
+	<div class="modal-content">
+	   <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+             <h2 class="modal-title">Used references</h2>
+	   </div>
+	   <div class="modal-body">
+	     <div class="result-errors">
+	     </div>
+
+	     <div class="result-output">
+	       <textarea class="form-control" id="output" cols="80" rows="10"></textarea>
+	     </div>
+	     <span class="help-block">Copy this text and paste it after the page text in WordPress.</span>
+
+	   </div>
+	</div>
+      </div>
+    </div>
+    
+    <script src="bibextract.js"></script>
+    <script lang="text/javascript">
+      document.getElementById('extract').addEventListener('click', function() { processReferences('references', 'text', showResults); });
+    </script>
+    
+  </body>
+</html>
