@@ -8,22 +8,26 @@ function processReferences(referencesId, textId, callback) {
 
     var referencesList = references.getElementsByTagName('ul')[0];
     if (!$(referencesList).hasClass('references')) {
-	$('.references').addClass('has-error');
-	return;
+    	$('.references').addClass('has-error');
+    	return;
     }
     $('.references').removeClass('has-error');
     var used = referencesList.cloneNode(false);
     
     var missing = {};
-
+    
     for (var i = 0; i < citations.length; i++ ) {
-	var id = citations[i].hash.substr(1)
-	var reference = references.getElementById(id);
-	if (!reference) {
-	    missing[id] = true;
-	} else {
-	    used.appendChild(reference);
-	}
+    	var id = citations[i].hash.substr(1)
+    	var reference = references.getElementById(id);
+    	if (!reference) {    	
+    	  // The reference might have already been moved into the new reference
+    	  // list, in which case, we should not report it as missing.
+    	  if (!used.querySelector('#'+id)) {
+  	      missing[id] = true;
+	      } 
+  	  } else {
+        used.appendChild(reference);
+    	}
     }
 
     callback(used.outerHTML, missing);
